@@ -1,0 +1,387 @@
+/* AgentVidBench viewer styles. Single light theme — tokens live as CSS
+ * variables on :root and are read by every component rule below. */
+
+:root {
+    --bg:            #ffffff;
+    --text:          #0f172a;
+    --text-muted:    #64748b;
+    --text-subtle:   #94a3b8;
+    --border:        #e2e8f0;
+    --border-strong: #cbd5e1;
+    --accent:        #6366f1;
+
+    --chip-bg:       #f1f5f9; --chip-text:       #334155;
+    --chip-fw-bg:    #e0e7ff; --chip-fw-text:    #3730a3;
+    --chip-model-bg: #ecfeff; --chip-model-text: #155e75;
+    --chip-tag-bg:   #fef3c7; --chip-tag-text:   #854d0e;
+
+    --pill-2-bg:     #d1fae5; --pill-2-text:     #065f46;
+    --pill-1-bg:     #fef3c7; --pill-1-text:     #854d0e;
+    --pill-0-bg:     #fee2e2; --pill-0-text:     #991b1b;
+    --pill-null-bg:  #f1f5f9; --pill-null-text:  #64748b;
+    --pill-info-bg:  #eff6ff; --pill-info-text:  #1e40af;
+
+    --tag-bg:        #fef2f2; --tag-text:        #b91c1c;
+    --tag-border:    #fecaca;
+
+    --code-bg:       #f8fafc;
+    --quote-bg:      #f8fafc;
+    --quote-border:  #cbd5e1;
+    --quote-text:    #334155;
+
+    --option-bg:          #f8fafc;
+    --option-text:        #475569;
+    --option-border:      #e2e8f0;
+    --option-gold-bg:     #d1fae5;
+    --option-gold-text:   #065f46;
+    --option-gold-border: #a7f3d0;
+}
+
+html, body, [class*="block-container"] {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+                 "Helvetica Neue", sans-serif;
+}
+.block-container {
+    max-width: 1400px;
+    padding-top: 1.25rem;
+    padding-bottom: 4rem;
+}
+
+html, body { background: var(--bg) !important; color: var(--text) !important; }
+[data-testid="stApp"],
+[data-testid="stAppViewContainer"],
+.stApp,
+.main,
+section.main { background: var(--bg) !important; }
+header[data-testid="stHeader"] { background: transparent !important; }
+[data-testid="stToolbar"] { background: transparent !important; }
+
+.block-container,
+.block-container p,
+.block-container li,
+.block-container h1, .block-container h2, .block-container h3,
+.block-container h4, .block-container h5,
+[data-testid="stMarkdownContainer"],
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li {
+    color: var(--text);
+}
+
+h1, h2, h3 { letter-spacing: -0.015em; }
+
+/* hero */
+.avb-hero { display: flex; align-items: baseline; gap: 0.75rem;
+            margin-bottom: 0.15rem; }
+.avb-hero h1 { margin: 0; font-size: 1.6rem; font-weight: 700; color: var(--text); }
+.avb-hero .accent { color: var(--accent); }
+.avb-subtitle { color: var(--text-muted); font-size: 0.85rem;
+                margin-bottom: 1.25rem;
+                font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+/* tabs */
+button[data-baseweb="tab"] { font-weight: 500; color: var(--text-muted) !important; }
+button[data-baseweb="tab"][aria-selected="true"] { color: var(--text) !important; }
+[data-baseweb="tab-border"], [data-baseweb="tab-highlight"] {
+    background: var(--accent) !important;
+}
+
+/* caption */
+.stCaption, [data-testid="stCaptionContainer"] { color: var(--text-muted) !important; }
+
+/* info / warning / success boxes */
+[data-testid="stAlert"] { background: var(--code-bg) !important; color: var(--text) !important; }
+
+/* expander — Streamlit / BaseWeb apply a hover overlay that, on mouseleave,
+   falls back to a class default with a darker tint. Pin every layer of the
+   expander DOM (the host, <details>, the body wrapper, the summary header)
+   to our --bg and re-pin the same color on :hover so there's nothing for
+   BaseWeb to revert to. The summary header keeps a subtle hover tint via
+   --code-bg to signal clickability. */
+html body [data-testid="stExpander"],
+html body [data-testid="stExpander"] > details,
+html body [data-testid="stExpander"] > details > div,
+html body [data-testid="stExpander"] [data-testid="stExpanderDetails"],
+html body [data-testid="stExpanderDetails"] {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+    border-color: var(--border) !important;
+}
+html body [data-testid="stExpander"]:hover,
+html body [data-testid="stExpander"] > details:hover,
+html body [data-testid="stExpander"] > details > div:hover,
+html body [data-testid="stExpander"] [data-testid="stExpanderDetails"]:hover,
+html body [data-testid="stExpanderDetails"]:hover {
+    background-color: var(--bg) !important;
+}
+/* the clickable summary/header gets a subtle hover tint */
+html body [data-testid="stExpander"] summary,
+html body [data-testid="stExpander"] details > summary {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+}
+html body [data-testid="stExpander"] summary:hover,
+html body [data-testid="stExpander"] details > summary:hover {
+    background-color: var(--code-bg) !important;
+}
+
+/* select / multiselect input fields (the closed control) */
+.stMultiSelect [data-baseweb="select"] > div,
+.stSelectbox [data-baseweb="select"] > div,
+[data-baseweb="select"] > div:first-child {
+    background: var(--bg) !important;
+    border-color: var(--border) !important;
+    color: var(--text) !important;
+}
+.stMultiSelect [data-baseweb="select"] input,
+.stSelectbox [data-baseweb="select"] input,
+[data-baseweb="select"] input { color: var(--text) !important; }
+[data-baseweb="select"] svg { fill: var(--text-muted) !important; }
+
+/* dropdown popover — rendered in a portal at document root, so selectors
+   are unscoped. BaseWeb sets the background-color via React state on
+   mouseenter/mouseleave; on mouseleave it falls back to a class-default
+   that bleeds a BaseWeb gray. We pin every state explicitly with `html
+   body` specificity + !important so the leave-state has nowhere to revert
+   to BaseWeb's default. */
+html body [data-baseweb="popover"],
+html body [data-baseweb="popover"] [data-baseweb="menu"],
+html body [data-baseweb="popover"] ul,
+html body ul[role="listbox"] {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 0.5rem !important;
+}
+/* idle (not hovered, not selected) */
+html body [data-baseweb="popover"] li:not(:hover):not([aria-selected="true"]),
+html body [data-baseweb="menu"] li:not(:hover):not([aria-selected="true"]),
+html body ul[role="listbox"] li:not(:hover):not([aria-selected="true"]),
+html body [role="option"]:not(:hover):not([aria-selected="true"]) {
+    background-color: transparent !important;
+    color: var(--text) !important;
+}
+/* hover */
+html body [data-baseweb="popover"] li:hover,
+html body [data-baseweb="menu"] li:hover,
+html body ul[role="listbox"] li:hover,
+html body [role="option"]:hover {
+    background-color: var(--chip-bg) !important;
+    color: var(--text) !important;
+}
+/* selected (persists when not hovered) — distinct color from hover */
+html body [role="option"][aria-selected="true"] {
+    background-color: var(--chip-fw-bg) !important;
+    color: var(--chip-fw-text) !important;
+}
+
+/* multiselect chips (BaseWeb tags inside the closed control) */
+.stMultiSelect [data-baseweb="tag"],
+[data-baseweb="select"] [data-baseweb="tag"] {
+    background: var(--chip-fw-bg) !important;
+    color: var(--chip-fw-text) !important;
+    border-radius: 999px !important;
+    padding: 0.0625rem 0.5rem !important;
+    font-size: 0.78rem !important;
+    font-weight: 500 !important;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+                 Roboto, sans-serif !important;
+    border: 1px solid var(--border) !important;
+}
+.stMultiSelect [data-baseweb="tag"] svg,
+[data-baseweb="select"] [data-baseweb="tag"] svg { fill: var(--accent) !important; }
+.stMultiSelect [data-baseweb="tag"] span,
+[data-baseweb="select"] [data-baseweb="tag"] span { color: var(--chip-fw-text) !important; }
+
+/* chip (framework / model / tag) */
+.chip {
+    display: inline-block;
+    padding: 0.0625rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin: 0 0.25rem 0.25rem 0;
+    background: var(--chip-bg);
+    color: var(--chip-text);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+                 Roboto, "Helvetica Neue", sans-serif;
+    letter-spacing: 0.01em;
+}
+.chip-fw    { background: var(--chip-fw-bg); color: var(--chip-fw-text); }
+.chip-model { background: var(--chip-model-bg); color: var(--chip-model-text); }
+.chip-tag   { background: var(--chip-tag-bg); color: var(--chip-tag-text); }
+
+/* run accent bar */
+.run-accent { height: 3px; border-radius: 2px; margin-bottom: 0.5rem; }
+
+/* score pills */
+.pill {
+    display: inline-block;
+    padding: 0.0625rem 0.5rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    font-size: 0.82rem;
+    margin: 0 0.125rem;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+                 Roboto, sans-serif;
+    font-variant-numeric: tabular-nums;
+    min-width: 1.6rem;
+    text-align: center;
+}
+.pill-2     { background: var(--pill-2-bg); color: var(--pill-2-text); }
+.pill-1     { background: var(--pill-1-bg); color: var(--pill-1-text); }
+.pill-0     { background: var(--pill-0-bg); color: var(--pill-0-text); }
+.pill-null  { background: var(--pill-null-bg); color: var(--pill-null-text); }
+.pill-info  { background: var(--pill-info-bg); color: var(--pill-info-text); }
+.pill-label { color: var(--text-muted); font-weight: 500;
+              margin: 0 0.125rem 0 0.5rem; font-size: 0.75rem;
+              text-transform: uppercase; letter-spacing: 0.04em; }
+
+/* failure tag */
+.tag-pill {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.375rem;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border: 1px solid var(--tag-border);
+    font-size: 0.74rem;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+                 Roboto, sans-serif;
+    margin: 0.125rem 0.25rem 0.125rem 0;
+}
+
+/* per-Q meta */
+.qmeta { color: var(--text-muted); font-size: 0.9rem;
+         margin: 0.4rem 0 0.6rem 0; }
+.qmeta .icon { font-size: 1.25rem; vertical-align: -2px; margin-right: 0.25rem; }
+.qmeta code { background: var(--code-bg); color: var(--text);
+              padding: 0.0625rem 0.375rem; border-radius: 0.25rem;
+              font-size: 0.78rem; }
+
+/* blockquote (per-Q summary text). Selectors stacked so the rule wins
+   wherever the blockquote ends up — bare in the per-Q card, inside an
+   expander, or inside a column. background-color (not the shorthand) +
+   !important + :hover pin is the only combo that beats BaseWeb's
+   mouseleave fallback. */
+blockquote,
+html body blockquote,
+html body [data-testid="stMarkdownContainer"] blockquote,
+html body [data-testid="stExpander"] blockquote,
+html body [data-testid="stExpanderDetails"] blockquote {
+    border-left: 3px solid var(--quote-border) !important;
+    background-color: var(--quote-bg) !important;
+    color: var(--quote-text) !important;
+    margin: 0.5rem 0 !important;
+    padding: 0.25rem 0.75rem !important;
+    border-radius: 0 0.25rem 0.25rem 0 !important;
+}
+blockquote:hover,
+html body blockquote:hover,
+html body [data-testid="stMarkdownContainer"] blockquote:hover,
+html body [data-testid="stExpander"] blockquote:hover,
+html body [data-testid="stExpanderDetails"] blockquote:hover {
+    background-color: var(--quote-bg) !important;
+    color: var(--quote-text) !important;
+}
+
+/* option grid (question panel) */
+.option-row {
+    display: flex; gap: 0.5rem; align-items: flex-start;
+    padding: 0.25rem 0.5rem; border-radius: 0.375rem;
+    font-size: 0.82rem;
+    background: var(--option-bg); color: var(--option-text);
+    border: 1px solid var(--option-border);
+}
+.option-row.gold {
+    background: var(--option-gold-bg); color: var(--option-gold-text);
+    border-color: var(--option-gold-border);
+}
+.option-row .letter {
+    font-weight: 600;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+    min-width: 1.25rem;
+}
+
+/* video meta block */
+.video-meta { font-size: 0.82rem; color: var(--text-muted);
+              line-height: 1.6; margin-top: 0.4rem; }
+.video-meta b { color: var(--text); }
+
+/* metric */
+[data-testid="stMetricValue"] {
+    font-size: 1.4rem; font-weight: 600; color: var(--text);
+    font-variant-numeric: tabular-nums;
+}
+[data-testid="stMetricLabel"] {
+    color: var(--text-muted) !important; text-transform: uppercase;
+    font-size: 0.7rem; letter-spacing: 0.05em; font-weight: 500;
+}
+[data-testid="stMetricDelta"] svg { display: none; }
+[data-testid="stMetricDelta"] {
+    color: var(--text-subtle) !important; font-size: 0.75rem;
+}
+
+/* dataframe */
+[data-testid="stDataFrame"] { border-radius: 0.5rem; overflow: hidden; }
+
+/* slice table — by_difficulty / by_category / by_skill. Rendered as plain
+   HTML rather than st.dataframe so it picks up our theme tokens (the canvas
+   data grid ignores CSS variables). */
+.avb-slice-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin: 0.25rem 0 0.75rem;
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+    background: var(--bg);
+}
+.avb-slice-table thead th {
+    background: var(--chip-bg);
+    color: var(--text-muted);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.45rem 0.7rem;
+    border-bottom: 1px solid var(--border);
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+.avb-slice-table tbody td {
+    padding: 0.45rem 0.7rem;
+    border-top: 1px solid var(--border);
+    color: var(--text);
+}
+.avb-slice-table tbody tr:first-child td { border-top: none; }
+.avb-slice-table tbody td.row-label {
+    color: var(--text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+}
+.avb-slice-table tbody tr:hover td { background: var(--chip-bg); }
+.avb-slice-table .run-dot {
+    display: inline-block;
+    width: 0.5rem; height: 0.5rem;
+    border-radius: 999px;
+    margin-right: 0.4rem;
+    vertical-align: 1px;
+}
+
+/* expander */
+[data-testid="stExpander"] details { border-radius: 0.5rem; }
+[data-testid="stExpander"] summary { color: var(--text); }
+
+/* code block */
+.stCodeBlock pre, [data-testid="stCodeBlock"] pre {
+    background: var(--code-bg) !important; color: var(--text) !important;
+}
+
+/* bordered container border color */
+[data-testid="stContainer"] > div[style*="border"] {
+    border-color: var(--border) !important;
+}

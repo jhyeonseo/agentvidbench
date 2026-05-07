@@ -1,0 +1,23 @@
+# Python / OS / IDE
+__pycache__/
+*.pyc
+*.swp
+*.tmp
+*.bak
+.DS_Store
+__MACOSX/
+Thumbs.db
+.vscode/
+.idea/
+.ipynb_checkpoints/
+
+# Secrets
+.env
+
+# HF dataset snapshot — populated by `hf download` (see README §2)
+dataset/
+
+# Run outputs (regeneratable)
+exp/
+logs/
+*.log
