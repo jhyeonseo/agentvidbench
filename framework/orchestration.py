@@ -106,12 +106,18 @@ def strip_answer_instruction(prompt_text: str) -> str:
     return prompt_text
 
 
-def _build_prompt(question_text: str, options: list[str]) -> str:
-    """Render the canonical prompt for a question + 26 A-Z options."""
+def _build_prompt(question_text: str, options: list) -> str:
+    """Render the canonical prompt for a question + 26 A-Z options.
+
+    Accepts either plain strings or {"letter","text"} dicts (HF dataset
+    shape). Dicts are unwrapped to their `text` so raw dict reprs don't
+    leak into the model prompt.
+    """
     lines = [f"Question: {question_text}", "", "Options:"]
     for i, opt in enumerate(options):
         letter = chr(ord("A") + i)
-        lines.append(f"{letter}) {opt}")
+        text = opt["text"] if isinstance(opt, dict) else opt
+        lines.append(f"{letter}) {text}")
     lines.append("")
     lines.append("Answer with ONLY the letter (A-Z) of your answer.")
     return "\n".join(lines)
@@ -228,7 +234,9 @@ def load_items(
 
         options_list = list(row.get("options") or [])
         options_dicts = [
-            {"letter": chr(ord("A") + i), "text": opt}
+            {"letter": opt.get("letter", chr(ord("A") + i)), "text": opt["text"]}
+            if isinstance(opt, dict)
+            else {"letter": chr(ord("A") + i), "text": opt}
             for i, opt in enumerate(options_list)
         ]
 
