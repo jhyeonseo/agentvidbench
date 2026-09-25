@@ -3,13 +3,11 @@
 <div align="center">
 
 [![arXiv](https://img.shields.io/badge/arXiv-xxxx.xxxxx-b31b1b)](https://arxiv.org/abs/xxxx.xxxxx)
-[![Dataset on HF](https://img.shields.io/badge/dataset-agentvidbench-yellow)](https://huggingface.co/datasets/agentvidbench/agentvidbench)
+[![Dataset on HF](https://img.shields.io/badge/dataset-agentvidbench-yellow)](https://huggingface.co/datasets/AgentVidBench123/agentvidbench)
 
 </div>
 
 Agentic Video Understanding Benchmark — 100 multiple-choice video QA questions, 26 options each (A-Z; ~3.8% random baseline). Two evaluation frameworks, one entry point (`inference.py`):
-
-by Seoyeon An*, Hyeonseo Jang*, Minsu Kim*, Chanho Lee, Younghan Park, Kangwook Lee ([KRAFTON AI](https://www.krafton.ai/en/))
 
 <div align="center">
   <img src="assets/example_q56.png" alt="Q56 — Bicep Curls Before &quot;One More&quot; (example task with human-curated reasoning trajectory)" width="75%">
@@ -20,7 +18,8 @@ by Seoyeon An*, Hyeonseo Jang*, Minsu Kim*, Chanho Lee, Younghan Park, Kangwook 
 System requirement: **ffmpeg** on `PATH` (used by `singleturn` to sample frames). On Debian/Ubuntu: `sudo apt install ffmpeg`; on macOS: `brew install ffmpeg`.
 
 ```bash
-git clone https://github.com/krafton-ai/agentvidbench.git && cd agentvidbench
+# download and unzip this repository, then:
+cd agentvidbench
 
 conda create -n agentvideobench python=3.12 -y
 conda activate agentvideobench
@@ -30,7 +29,7 @@ pip install -r requirements.txt
 ## 2. Dataset
 
 ```bash
-hf download agentvidbench/agentvidbench --repo-type dataset --local-dir dataset
+hf download AgentVidBench123/agentvidbench --repo-type dataset --local-dir dataset
 ```
 
 This populates:
@@ -145,14 +144,3 @@ streamlit run viewer.py
 ```
 
 > **Stopping the server.** `Ctrl+C` is known to hang while Streamlit waits for open browser sessions and the file watcher to wind down. Workaround: `Ctrl+Z` to suspend, then `killall -9 streamlit` (or `pkill -9 -f "streamlit run"`).
-
-## Citation
-
-```
-@misc{krafton2026agentvidbench,
-  title  = {AgentVidBench: A Multi-Hop Video Question Answering Benchmark for Evaluating MLLM Agents},
-  author = {An, Seoyeon and Jang, Hyeonseo and Kim, Minsu and Lee, Chanho and Park, Younghan and Lee, Kangwook},
-  year   = {2026},
-  url    = {https://github.com/krafton-ai/agentvidbench}
-}
-```

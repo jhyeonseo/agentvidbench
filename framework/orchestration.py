@@ -193,7 +193,7 @@ def load_items(
         sys.exit(
             f"ERROR: {questions_jsonl} not found.\n"
             "Snapshot the HF dataset first:\n"
-            "  hf download agentvidbench/agentvidbench --repo-type dataset --local-dir dataset"
+            "  hf download AgentVidBench123/agentvidbench --repo-type dataset --local-dir dataset"
         )
 
     rows = _read_jsonl(questions_jsonl)
@@ -217,7 +217,7 @@ def load_items(
         if not local_path.exists():
             sys.exit(
                 f"ERROR: missing video file for Q{qid}: {rel_video}\n"
-                f"Run `hf download agentvidbench/agentvidbench --repo-type dataset --local-dir dataset` "
+                f"Run `hf download AgentVidBench123/agentvidbench --repo-type dataset --local-dir dataset` "
                 f"to repopulate dataset/videos/."
             )
 
@@ -228,7 +228,7 @@ def load_items(
         if not transcript_path.exists():
             sys.exit(
                 f"ERROR: missing transcript file for Q{qid}: {rel_transcript}\n"
-                f"Run `hf download agentvidbench/agentvidbench --repo-type dataset --local-dir dataset` "
+                f"Run `hf download AgentVidBench123/agentvidbench --repo-type dataset --local-dir dataset` "
                 f"to repopulate dataset/transcripts/."
             )
 
